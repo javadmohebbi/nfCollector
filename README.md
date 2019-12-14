@@ -185,5 +185,5 @@ I have made two simple **Grafana** dashboards to which you can download them fro
 - [Netflow Exporter Overview](https://grafana.com/grafana/dashboards/11408)
 - [Netflow Summary Overview](https://grafana.com/grafana/dashboards/11409)
 
-(https://raw.githubusercontent.com/javadmohebbi/nfCollector/master/NetflowExporter%20Overview-Grafana.png)
-(https://raw.githubusercontent.com/javadmohebbi/nfCollector/master/NetflowSummary%20Overview-Grafana.png)
+![Netflow Exporter Dashboard](https://raw.githubusercontent.com/javadmohebbi/nfCollector/master/NetflowExporter%20Overview-Grafana.png)
+![Netflow Summary Dashboard](https://raw.githubusercontent.com/javadmohebbi/nfCollector/master/NetflowSummary%20Overview-Grafana.png)
