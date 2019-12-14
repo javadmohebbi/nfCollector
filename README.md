@@ -32,7 +32,7 @@ You can download the compiled versions from the further links:
 ## Prepare InfluxDB
 If you want to export Netflow traffics to **InfluxDB** database you must install it. currently we support version 1.x
 - You can get InfluxDB installtion file from [This Link](https://portal.influxdata.com/downloads/)
-- ***InfluxData recommends you to have install InfluxDB on SSD*** and since we are going to store many metrics SSD disk is recommended for better performance.
+- ***InfluxData recommends you to install InfluxDB on SSD*** and since we are going to store many metrics SSD disk is recommended for better performance.
 - After installing InfluxDB you can create a DB using this command: ```CREATE DATABASE "netflowDB" WITH DURATION 10d REPLICATION 1 SHARD DURATION 1h NAME "nfc"```
 
 
