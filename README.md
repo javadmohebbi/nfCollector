@@ -19,6 +19,8 @@ As I develop this tool for my personal usage at first step, It has a small featu
 ## Usage
 In order to use this tool you can download the compiled binaries or you can compile it for yourself.
 You can download the compiled versions from the further links:
+
+### Download Binaries:
   - **Linux AMD64**:
     - *nfcol*: [Download Linux AMD64 Binaries](https://github.com/javadmohebbi/nfCollector/raw/master/dist/linux/amd64/nfcol)
     - *nfcol-dump*: [Download Linux AMD64 Binaries](https://github.com/javadmohebbi/nfCollector/raw/master/dist/linux/amd64/nfcol-dump)
@@ -28,6 +30,18 @@ You can download the compiled versions from the further links:
   - **MacOS AMD64**:
     - *nfcol*: [Download MacOS AMD64 Binaries](https://github.com/javadmohebbi/nfCollector/raw/master/dist/darwin/amd64/nfcol)
     - *nfcol-dump*: [Download MacOS AMD64 Binaries](https://github.com/javadmohebbi/nfCollector/raw/master/dist/darwin/amd64/nfcol-dump)
+
+
+
+### Download Installation Packages
+Currently we have just created a DEB package. We will provide RPM and MSI packages here soon ;-)
+
+  - [Debian (deb) package for AMD64 bit systems](https://github.com/javadmohebbi/nfCollector/raw/master/dist/packages/amd64/deb/nfcol_0.0.9-amd64.deb)
+  - To install this package run the command ```sudo dpkg -i nfcol_0.0.9-amd64.deb```
+      - It will install nfcol, nfcol-dump and ip2location and will create a system service **nfcol.service**. Also it will download the latest IP2Location Lite DB from the Internet
+      - One Installation has completed, You can check the service status using ```sudo service nfcol status```       
+  
+
 
 ## Prepare InfluxDB
 If you want to export Netflow traffics to **InfluxDB** database you must install it. currently we support version 1.x
