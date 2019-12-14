@@ -20,14 +20,14 @@ As I develop this tool for my personal usage at first step, It has a small featu
 In order to use this tool you can download the compiled binaries or you can compile it for yourself.
 You can download the compiled versions from the further links:
   - **Linux AMD64**:
-    - *nfcol*: [Download Linux AMD64 Binaries](https://)
-    - *nfcol-dump*: [Download Linux AMD64 Binaries](https://)
+    - *nfcol*: [Download Linux AMD64 Binaries](https://github.com/javadmohebbi/nfCollector/raw/master/dist/linux/amd64/nfcol)
+    - *nfcol-dump*: [Download Linux AMD64 Binaries](https://github.com/javadmohebbi/nfCollector/raw/master/dist/linux/amd64/nfcol-dump)
   - **Windows AMD64**:
-    - *nfcol.exe*: [Download Windows AMD64 Binaries](https://)
-    - *nfcol-dump.exe*: [Download Windows AMD64 Binaries](https://)
+    - *nfcol.exe*: [Download Windows AMD64 Binaries](https://github.com/javadmohebbi/nfCollector/raw/master/dist/windows/amd64/nfcol.exe)
+    - *nfcol-dump.exe*: [Download Windows AMD64 Binaries](https://github.com/javadmohebbi/nfCollector/raw/master/dist/windows/amd64/nfcol-dump.exe)
   - **MacOS AMD64**:
-    - *nfcol*: [Download MacOS AMD64 Binaries](https://)
-    - *nfcol-dump*: [Download MacOS AMD64 Binaries](https://)
+    - *nfcol*: [Download MacOS AMD64 Binaries](https://github.com/javadmohebbi/nfCollector/raw/master/dist/darwin/amd64/nfcol)
+    - *nfcol-dump*: [Download MacOS AMD64 Binaries](https://github.com/javadmohebbi/nfCollector/raw/master/dist/darwin/amd64/nfcol-dump)
 
 ## Prepare InfluxDB
 If you want to export Netflow traffics to **InfluxDB** database you must install it. currently we support version 1.x

@@ -63,7 +63,7 @@ var (
 	configExtension string = "yaml"
 )
 
-const IsDev bool = true
+const IsDev bool = false
 
 // ReadConfig - ReadConfig & Return Configurations struct
 func ReadConfig() (Configurations, error) {
