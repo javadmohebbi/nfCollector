@@ -1,0 +1,79 @@
+# # # # # # # # # # # # # # # # # #
+#       Netflow Collector         #
+#         Configuration           #
+# # # # # # # # # # # # # # # # # #
+server:
+  # Listen Address
+  address: 0.0.0.0
+
+  # Listen UDP Port
+  port: 6859
+
+  # If true, nfc will write flow data into stdout
+  dump: false
+
+  # Activate forwarder
+  forwarder: true
+
+  # Host to forward - Can be separated by ; (semi-colon) eg: 127.0.0.1;192.168.100.1
+  forwarderHost: 127.0.0.1
+
+  # Forwarder UDP Port
+  forwarderPort: 7161
+
+# # # # # # # # # # # # # # # # # #
+#    IP2Location Configuration    #
+# # # # # # # # # # # # # # # # # #
+ip2location:
+  # IP2Location command path
+  cmd: /usr/local/bin/ip2location
+
+  # Path to Local GEO Database. Read more at:
+  #      https://github.com/javadmohebbi/IP2Location#local-database-format
+  local: /etc/ip2location/local.csv
+
+# # # # # # # # # # # # # # # # # #
+#     Exporter Configuration      #
+# # # # # # # # # # # # # # # # # #
+exporter:
+  # Enable if it's true
+  enable: false
+
+  # Currently Only InfluxDB (1.x) supported
+  type: influxdb
+
+
+# # # # # # # # # # # # # # # # # #
+#     InfluxDB Configuration      #
+# # # # # # # # # # # # # # # # # #
+influxDB:
+  # InfluxDB Host
+  host: 127.0.0.1
+
+  # InfluxDB Port
+  port: 8086
+
+  # InfluxDB Username. Can be null
+  username: #user
+
+  # InfluxDB Password. Can be null
+  password: #secret
+
+  # InfluxDB Database
+  # InfluxDB command example for creating database:
+  #       CREATE DATABASE "netflowDB" WITH DURATION 10d REPLICATION 1 SHARD DURATION 1h NAME "nfc"
+  database: netflowDB
+
+  # Temp Dir for InfluxDB Metrics. MUST be ended with / (Linux) or \ (Windows)
+  tmpDir: /tmp/nfcol/
+
+
+# # # # # # # # # # # # # # # # # #
+#          Measurements           #
+# # # # # # # # # # # # # # # # # #
+measurements:
+  # Netflow Summary Measurement Name
+  summaryProto: sum_proto
+
+  # Netflow GEO Summary Measurement Name
+  summaryProtoGeo: sum_proto_geo

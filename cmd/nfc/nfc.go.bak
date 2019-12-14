@@ -1,0 +1,13 @@
+package main
+
+import (
+	"nfCollector/pkg/flgs"
+	"os"
+)
+
+
+func main() {
+	flgs.InitFlags()
+
+	os.Exit(0)
+}

@@ -1,0 +1,110 @@
+package lstn
+
+import (
+	"bytes"
+	"fmt"
+	"github.com/tehmaze/netflow"
+	"github.com/tehmaze/netflow/netflow1"
+	"github.com/tehmaze/netflow/netflow5"
+	"github.com/tehmaze/netflow/netflow6"
+	"github.com/tehmaze/netflow/netflow7"
+	"github.com/tehmaze/netflow/netflow9"
+	"github.com/tehmaze/netflow/session"
+	"github.com/tehmaze/netflow/ipfix"
+	"log"
+	"net"
+
+	"nfCollector/pkg/exporter"
+)
+
+const bufferSize int = 8960
+
+// Listen - Listen Server on proto, address:port
+func Listen(address string, port string) (*net.UDPConn, error) {
+	// Resolve Address
+	sAddr, err := net.ResolveUDPAddr("udp", address + ":" + port)
+	if err != nil {
+		panic(err)
+	}
+
+	// Listen
+		sConn, err := net.ListenUDP("udp", sAddr)
+	if err != nil {
+		return nil, err
+	}
+	if err = sConn.SetReadBuffer(bufferSize); err != nil {
+		panic(err)
+	}
+	fmt.Printf("Server is listening on %s\n", sConn.LocalAddr().String())
+	return sConn, nil
+}
+
+// ExtractPackets - If listen was OK, this func will be called to extract information from UDP connection
+func ExtractPackets(conn *net.UDPConn, dump bool) {
+
+
+
+	// Close connection when app stopped
+	defer conn.Close()
+
+	var err error
+	decoders := make(map[string]*netflow.Decoder)
+	for {
+		buf := make([]byte, 8192)
+		var remote *net.UDPAddr
+		var octets int
+		if octets, remote, err = conn.ReadFromUDP(buf); err != nil {
+			if dump {
+				log.Printf("error reading from %s: %v\n", remote, err)
+			}
+			continue
+		}
+
+		if dump {
+			fmt.Printf("received %d bytes from %s\n", octets, remote)
+		}
+
+		d, found := decoders[remote.String()]
+		if !found {
+			s := session.New()
+			d = netflow.NewDecoder(s)
+			decoders[remote.String()] = d
+		}
+
+		m, err := d.Read(bytes.NewBuffer(buf[:octets]))
+
+		if err != nil {
+			if dump {
+				fmt.Println("decoder error:", err)
+			}
+			continue
+		}
+
+		switch p := m.(type) {
+		case *netflow1.Packet:
+			if dump { netflow1.Dump(p) }
+			exporter.Write(p)
+
+		case *netflow5.Packet:
+			if dump { netflow5.Dump(p) }
+			exporter.Write(p)
+
+		case *netflow6.Packet:
+			if dump { netflow6.Dump(p) }
+			exporter.Write(p)
+
+		case *netflow7.Packet:
+			if dump { netflow7.Dump(p) }
+			exporter.Write(p)
+
+		case *netflow9.Packet:
+			if dump { netflow9.Dump(p) }
+			exporter.Write(p)
+
+		case *ipfix.Message:
+			if dump { ipfix.Dump(p) }
+			exporter.Write(p)
+		}
+	}
+
+}
