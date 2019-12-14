@@ -1,4 +1,4 @@
-# Netflow Collector
+# Netflow Collector v0.0.9
 **NFCOL** Collects Netflow version 1, 5, 6, 7, 9 & IPFIX & stores them on **InfluxData** time-series DB (InfluxDB)
 
 
