@@ -19,9 +19,15 @@ As I develop this tool for my personal usage at first step, It has a small featu
 ## Usage
 In order to use this tool you can download the compiled binaries or you can compile it for yourself.
 You can download the compiled versions from the further links:
-  - **Linux AMD64**: [Download Linux AMD64 Binaries](https://)
-  - **Windows AMD64**: [Download Windows AMD64 Binaries](https://)
-  - **MacOS AMD64**: [Download MacOS AMD64 Binaries](https://)
+  - **Linux AMD64**:
+    - *nfcol*: [Download Linux AMD64 Binaries](https://)
+    - *nfcol-dump*: [Download Linux AMD64 Binaries](https://)
+  - **Windows AMD64**:
+    - *nfcol.exe*: [Download Windows AMD64 Binaries](https://)
+    - *nfcol-dump.exe*: [Download Windows AMD64 Binaries](https://)
+  - **MacOS AMD64**:
+    - *nfcol*: [Download MacOS AMD64 Binaries](https://)
+    - *nfcol-dump*: [Download MacOS AMD64 Binaries](https://)
 
 ## Prepare InfluxDB
 If you want to export Netflow traffics to **InfluxDB** database you must install it. currently we support version 1.x
