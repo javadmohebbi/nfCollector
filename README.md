@@ -181,3 +181,9 @@ Almost all of options starts with **-flt** accept ***wildcards***.
 
 # Grafana Dashboards
 I have made two simple **Grafana** dashboards to which you can download them from the further links:
+
+- [Netflow Exporter Overview](https://grafana.com/grafana/dashboards/11408)
+- [Netflow Summary Overview](https://grafana.com/grafana/dashboards/11409)
+
+(https://raw.githubusercontent.com/javadmohebbi/nfCollector/master/NetflowExporter%20Overview-Grafana.png)
+(https://raw.githubusercontent.com/javadmohebbi/nfCollector/master/NetflowSummary%20Overview-Grafana.png)
