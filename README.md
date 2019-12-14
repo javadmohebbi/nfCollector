@@ -33,7 +33,7 @@ Your ```nfc.yaml``` file must look like this sample:
 #       Netflow Collector         #
 #         Configuration           #
 # # # # # # # # # # # # # # # # # #
-server:
+**server**:
   # Listen Address
   address: 0.0.0.0
 
