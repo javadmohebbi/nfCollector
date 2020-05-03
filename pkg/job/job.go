@@ -3,7 +3,6 @@ package job
 import (
 	"bufio"
 	"fmt"
-	"github.com/influxdata/influxdb/client/v2"
 	"log"
 	"nfCollector/pkg/cnf"
 	"os"
@@ -12,8 +11,9 @@ import (
 	"strings"
 	"sync"
 	"time"
-)
 
+	"github.com/influxdata/influxdb/client/v2"
+)
 
 const INTERVAL_PERIOD time.Duration = 1 * time.Second
 
@@ -21,14 +21,12 @@ const HOUR_TO_TICK int = 00
 const MINUTE_TO_TICK int = 01
 const SECOND_TO_TICK int = 00
 
-
 // An uninteresting service.
 type Job struct {
-	ch        	chan bool
-	waitGroup 	*sync.WaitGroup
-	timer 		*time.Timer
+	ch        chan bool
+	waitGroup *sync.WaitGroup
+	timer     *time.Timer
 }
-
 
 // Make a new Service.
 func NewJob() *Job {
@@ -53,7 +51,6 @@ func (j *Job) updateTimer() {
 		j.timer.Reset(diff)
 	}
 }
-
 
 func (j *Job) Run() {
 	defer j.waitGroup.Done()
@@ -93,7 +90,6 @@ func (j *Job) Run() {
 
 }
 
-
 // Stop the service by closing the service's channel.  Block until the service
 // is really stopped.
 func (j *Job) Stop() {
@@ -101,7 +97,6 @@ func (j *Job) Stop() {
 	//close(s.ch)
 	log.Println("Jobs Stopped!")
 }
-
 
 // WriteSumProto - Read File
 func (j *Job) WriteToDb(meas string) {
@@ -115,7 +110,6 @@ func (j *Job) WriteToDb(meas string) {
 
 	log.Printf("Job for measurement (%v) Started!", meas)
 	defer log.Printf("Job for measurement (%v) Finished!", meas)
-
 
 	dirname := conf.InfluxDB.TmpDir + meas + string(os.PathSeparator)
 	d, err := os.Open(dirname)
@@ -135,8 +129,6 @@ func (j *Job) WriteToDb(meas string) {
 
 	log.Println("Reading directory", dirname)
 
-
-
 	var rawMetrics []string
 
 	// Read Directory
@@ -148,12 +140,11 @@ func (j *Job) WriteToDb(meas string) {
 			}
 			if filepath.Ext(file.Name()) == ".metrics" {
 				log.Println("Reading metrics", file.Name())
-				f, err := os.OpenFile(dirname + file.Name(), os.O_RDONLY, 0600)
+				f, err := os.OpenFile(dirname+file.Name(), os.O_RDONLY, 0600)
 				if err != nil {
-					log.Println("File reading error", dirname + file.Name(), err)
+					log.Println("File reading error", dirname+file.Name(), err)
 					continue
 				}
-
 
 				scanner := bufio.NewScanner(f)
 				for scanner.Scan() {
@@ -163,15 +154,15 @@ func (j *Job) WriteToDb(meas string) {
 					}
 				}
 				if err := scanner.Err(); err != nil {
-					log.Println("File reading error", dirname + file.Name(), err)
+					log.Println("File reading error", dirname+file.Name(), err)
 					continue
 				}
 
 				f.Close()
 
-				err =  os.Rename(dirname + file.Name(), dirname + file.Name() + ".working")
+				err = os.Rename(dirname+file.Name(), dirname+file.Name()+".working")
 				if err != nil {
-					log.Fatal("Can not rename file", dirname + file.Name(), err)
+					log.Fatal("Can not rename file", dirname+file.Name(), err)
 				}
 
 			}
@@ -195,8 +186,10 @@ func (j *Job) WriteToDb(meas string) {
 	defer c.Close()
 
 	bp, _ := client.NewBatchPoints(client.BatchPointsConfig{
-		Database:  conf.InfluxDB.Database,
-		Precision: "us",
+		Database: conf.InfluxDB.Database,
+
+		// LET InfluxDB Configuration choose the Precision
+		// Precision: "u",
 	})
 
 	for _, rawMet := range rawMetrics {
@@ -226,7 +219,7 @@ func (j *Job) WriteToDb(meas string) {
 				fld[fName] = fValInt32
 			} else if "f" == fVal[len(fVal)-1:] {
 				fVal = fVal[:len(fVal)-1]
-				fValInt32, _ := strconv.ParseFloat(fVal,  32)
+				fValInt32, _ := strconv.ParseFloat(fVal, 32)
 				fld[fName] = fValInt32
 			} else {
 				fld[fName] = fVal
@@ -257,10 +250,7 @@ func (j *Job) WriteToDb(meas string) {
 	// Add done extension to .working
 	doneTheExtension(dirname)
 
-
 }
-
-
 
 // deleteTheExtensions
 func deleteTheDoneExtensions(dirname string) {
@@ -282,29 +272,26 @@ func deleteTheDoneExtensions(dirname string) {
 	for _, file := range files {
 		if file.Mode().IsRegular() {
 			if filepath.Ext(file.Name()) == ".done" {
-				err =  os.Remove(dirname + file.Name())
+				err = os.Remove(dirname + file.Name())
 				if err != nil {
-					log.Fatal("Cant delete to .done", dirname + file.Name())
+					log.Fatal("Cant delete to .done", dirname+file.Name())
 				}
-				log.Printf("File %v deteled",file.Name())
+				log.Printf("File %v deteled", file.Name())
 			}
 
 			if filepath.Ext(file.Name()) == ".working" {
 				newFileNameArr := strings.Split(file.Name(), ".")
-				err =  os.Rename(dirname + file.Name(), dirname + newFileNameArr[0] + "." + newFileNameArr[1])
+				err = os.Rename(dirname+file.Name(), dirname+newFileNameArr[0]+"."+newFileNameArr[1])
 				if err != nil {
-					log.Println("Cant rename from .working to .metrics", dirname + file.Name())
+					log.Println("Cant rename from .working to .metrics", dirname+file.Name())
 					continue
 				}
-				log.Printf("File %v renamed to %v",file.Name(), newFileNameArr[0] + "." + newFileNameArr[1])
+				log.Printf("File %v renamed to %v", file.Name(), newFileNameArr[0]+"."+newFileNameArr[1])
 			}
 		}
 	}
 	time.Sleep(2 * time.Second)
 }
-
-
-
 
 // doneTheExtension
 func doneTheExtension(dirname string) {
@@ -326,11 +313,11 @@ func doneTheExtension(dirname string) {
 	for _, file := range files {
 		if file.Mode().IsRegular() {
 			if filepath.Ext(file.Name()) == ".working" {
-				err =  os.Rename(dirname + file.Name(), dirname + file.Name() + ".done")
+				err = os.Rename(dirname+file.Name(), dirname+file.Name()+".done")
 				if err != nil {
-					log.Fatal("Cant rename to .done", dirname + file.Name())
+					log.Fatal("Cant rename to .done", dirname+file.Name())
 				}
-				log.Printf("File %v renamed to %v",file.Name(), file.Name() + ".done\n")
+				log.Printf("File %v renamed to %v", file.Name(), file.Name()+".done\n")
 			}
 		}
 	}
