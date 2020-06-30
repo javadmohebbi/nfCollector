@@ -12,7 +12,7 @@ import (
 	"sync"
 	"time"
 
-	"github.com/influxdata/influxdb/client/v2"
+	"github.com/influxdata/influxdb1-client"
 )
 
 const INTERVAL_PERIOD time.Duration = 1 * time.Second
