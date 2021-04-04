@@ -1,3 +1,8 @@
+
+# END OF LIFE NOTE
+**THIS REPO IS DEPRECATED & NO PATCH NOR UPDATE WILL BE PROVIDED IN THE FUTURE. TO UPDATE TO THE LATEST VERSION, PLEASE WATCH THIS REPO [goNfCollector](https://github.com/javadmohebbi/goNfCollector)**
+
+
 # Netflow Collector v0.0.9
 **NFCOL** Collects Netflow version 1, 5, 6, 7, 9 & IPFIX & stores them on **InfluxData** time-series DB (InfluxDB)
 
