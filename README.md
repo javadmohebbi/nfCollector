@@ -3,13 +3,13 @@
 
 
 ## Features
-As I develop this tool for my personal usage at first step, It has a small features. Here is the list of current features.
+As I develop this tool for my personal usage at first step, It has small set of features:
 
 - **Collect all available versions of Netflow**
-  - **YAML** config file which help you to configure the whole application from a single file
-  - Thanks to [tehmaze](https://github.com/tehmaze/netflow), We are using this package to decode Netflow traffics & we are able to decode 1, 5, 6, 7, 9 & IPFIX protocols.
-  - You can forwarded decoded Netflow packets to another hosts by enabling **Packet Forwarders** in **nfc.yaml** config file
-    - In addition to packet forwarder, **nfc-dump** is a client for forwarder to print a nice table for you. Also this tool can filter packets according to the provided arguments.
+  - **YAML** config file which helps you configure the whole application from a single file
+  - Thanks to [tehmaze](https://github.com/tehmaze/netflow), We are using this repo to decode Netflow traffics & able to decode 1, 5, 6, 7, 9 & IPFIX protocols.
+  - You can forward **decoded** Netflow packets to another hosts by enabling **Packet Forwarders** in **nfc.yaml** config file
+    - In addition to packet forwarder, **nfc-dump** is a client for forwarded packets to print a nice tabular output. Also this tool can filter incomming packets according to the provided arguments.
   - Exporting traffics to **InfluxDB** time-series database.
     - To enable this feature you need to configure **nfc.yaml** config file
     - Also, It can provide you a GEO Location information for the SOURCE & DESTINATION IP Addresses (both IPv4 & IPv6).
@@ -34,7 +34,7 @@ You can download the compiled versions from the further links:
 
 
 ### Download Installation Packages
-Currently we have just created a DEB package. We will provide RPM and MSI packages here soon ;-)
+Currently I have just created a DEB package. I will provide RPM and MSI packages here soon ;-)
 
   - [Debian (deb) package for AMD64 bit systems](https://github.com/javadmohebbi/nfCollector/raw/master/dist/packages/amd64/deb/nfcol_0.0.9-amd64.deb)
     - To install this package run the command ```sudo dpkg -i nfcol_0.0.9-amd64.deb```
@@ -44,9 +44,9 @@ Currently we have just created a DEB package. We will provide RPM and MSI packag
 
 
 ## Prepare InfluxDB
-If you want to export Netflow traffics to **InfluxDB** database you must install it. currently we support version 1.x
+If you want to export Netflow traffics to **InfluxDB** database you must install it. currently we support version 1.x (max version is 1.7)
 - You can get InfluxDB installtion file from [This Link](https://portal.influxdata.com/downloads/)
-- ***InfluxData recommends you to install InfluxDB on SSD*** and since we are going to store many metrics SSD disk is recommended for better performance.
+- ***InfluxData recommends you to install InfluxDB on SSD*** and since we are going to store many metrics, SSD disk is recommended for better performance.
 - After installing InfluxDB you can create a DB using this command: ```CREATE DATABASE "netflowDB" WITH DURATION 10d REPLICATION 1 SHARD DURATION 1h NAME "nfc"```
 
 
@@ -54,7 +54,7 @@ If you want to export Netflow traffics to **InfluxDB** database you must install
 To config **nfcol** you need to provide configuration file in **yaml** format. ```*nix``` users must place this file in ```/etc/nfcol/nfc.yaml``` & ```windows``` users must place it in ```%ProgramFiles%\Netflow-Collector\nfc.yaml```
 ***If you use installtion packages, It will create it for you automatically***
 
-Your ```nfc.yaml``` file must look like this sample:
+Your ```nfc.yaml``` file must be look like this sample:
 ```
 # # # # # # # # # # # # # # # # # #
 #       Netflow Collector         #
@@ -144,7 +144,7 @@ If you want to use GEO location tool, you need to read it's usage at [IP2Locatio
 
 
 ## Command line options
-Here is the command line options for all binaries
+Here is the command line options for all binaries:
 ### nfcol command line options
 ```
   -addr string
@@ -168,7 +168,7 @@ Here is the command line options for all binaries
 
 ### nfcol-dump command line options
 This tool can connect to nfcol tools & **Filter** and **Print** Netflow Traffic to the standard output (Terminal, CMD, Powershell)
-Almost all of options starts with **-flt** accept ***wildcards***.
+Almost all of options starts with **-flt** & accepts ***wildcards***.
 ```
   -addr string
         Listen IP address - Default 127.0.0.1
@@ -200,7 +200,7 @@ Almost all of options starts with **-flt** accept ***wildcards***.
 
 
 # Grafana Dashboards
-I have made two simple **Grafana** dashboards to which you can download them from the further links:
+I have made two simple & powerfull **Grafana** dashboards which you can download them from the further links:
 
 - [Netflow Exporter Overview](https://grafana.com/grafana/dashboards/11408)
 - [Netflow Summary Overview](https://grafana.com/grafana/dashboards/11409)
